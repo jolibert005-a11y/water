@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Smart</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:20px;font-family:Arial,sans-serif;background:#eaf8ff;color:#123}
+.container{max-width:650px;margin:auto}
+.header{background:#0099ff;color:white;padding:28px 20px;border-radius:20px;text-align:center;margin-bottom:20px;box-shadow:0 8px 20px rgba(0,0,0,.12)}
+.header .icon{font-size:48px}.header h1{margin:5px 0 8px;font-size:30px}.header p{margin:0}
+.card{background:white;padding:22px;margin-bottom:18px;border-radius:18px;box-shadow:0 4px 15px rgba(0,0,0,.07)}
+h2{color:#0088dd;margin-top:0}p{line-height:1.6}
+label{display:block;font-weight:bold;margin-top:14px;margin-bottom:6px}
+input{width:100%;padding:13px;border:1px solid #b9dceb;border-radius:10px;font-size:16px;outline:none}
+input:focus{border-color:#0099ff}
+button{width:100%;padding:14px;margin-top:16px;border:none;border-radius:10px;background:#0099ff;color:white;font-size:16px;font-weight:bold}
+button:hover{background:#007dcc}.reset{background:#64748b}
+.hasil{background:#effaff;border-left:5px solid #0099ff;padding:15px;border-radius:10px;margin-top:15px}
+.total{text-align:center;font-size:40px;font-weight:bold;color:#0088dd;margin:8px 0 0}
+.satuan{text-align:center;color:#64748b}
+.status{text-align:center;background:#e5f7ff;padding:12px;border-radius:10px;margin:15px 0;font-weight:bold}
+.recommendation{background:#f0fdf4;border-left:5px solid #16a34a;padding:15px;border-radius:10px}
+.formula{background:#f8fafc;padding:15px;border-radius:12px}
+.footer{text-align:center;color:#64748b;padding:20px 0;font-size:14px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+<div class="icon">💧</div>
+<h1>Water Smart</h1>
+<p>Aplikasi Penghitung Penggunaan Air</p>
+</div>
+
+<div class="card">
+<h2>📊 Masukkan Data</h2>
+
+<label>🚿 Berapa kali mandi per hari?</label>
+<input type="number" id="mandi" min="0" placeholder="Contoh: 2">
+
+<label>⏱️ Durasi mandi setiap kali (menit)</label>
+<input type="number" id="durasi" min="0" placeholder="Contoh: 10">
+
+<label>🚰 Lama menggunakan keran (menit/hari)</label>
+<input type="number" id="keran" min="0" placeholder="Contoh: 5">
+
+<label>🧺 Berapa kali mencuci per hari?</label>
+<input type="number" id="cuci" min="0" placeholder="Contoh: 1">
+
+<label>💦 Penggunaan air lainnya (liter/hari)</label>
+<input type="number" id="lainnya" min="0" placeholder="Contoh: 20">
+
+<button onclick="hitungAir()">💧 HITUNG PENGGUNAAN AIR</button>
+<button class="reset" onclick="resetKalkulator()">RESET</button>
+
+<div class="hasil">
+<b>Hasil:</b>
+<div class="total" id="total">0</div>
+<div class="satuan">liter / hari</div>
+<div class="status" id="status">Masukkan data untuk melihat hasil.</div>
+</div>
+
+<div class="recommendation">
+<b>💡 Saran Penghematan</b>
+<p id="saran">Masukkan data untuk mendapatkan saran.</p>
+</div>
+</div>
+
+<div class="card">
+<h2>🧮 Cara Kerja</h2>
+<p>Aplikasi memperkirakan penggunaan air berdasarkan data yang dimasukkan pengguna.</p>
+<div class="formula">
+<p>Air mandi = jumlah mandi × durasi × 10 liter</p>
+<p>Air keran = durasi keran × 6 liter</p>
+<p>Air mencuci = jumlah mencuci × 40 liter</p>
+<p>Air lainnya = sesuai input pengguna</p>
+</div>
+<p><b>Total penggunaan air</b> = air mandi + air keran + air mencuci + air lainnya.</p>
+<p><small>Catatan: angka pemakaian merupakan asumsi simulasi untuk pembelajaran.</small></p>
+</div>
+
+<div class="card">
+<h2>ℹ️ Cara Menggunakan</h2>
+<p>1. Masukkan jumlah mandi per hari.</p>
+<p>2. Masukkan durasi mandi.</p>
+<p>3. Masukkan lama penggunaan keran.</p>
+<p>4. Masukkan jumlah mencuci.</p>
+<p>5. Masukkan penggunaan air lainnya.</p>
+<p>6. Tekan tombol "Hitung Penggunaan Air".</p>
+<p>7. Lihat total penggunaan air dan rekomendasi.</p>
+</div>
+
+<div class="footer">Water Smart<br>Projek PIPAS × Koding & AI</div>
+</div>
+
+<script>
+function hitungAir(){
+var mandi=Number(document.getElementById("mandi").value)||0;
+var durasi=Number(document.getElementById("durasi").value)||0;
+var keran=Number(document.getElementById("keran").value)||0;
+var cuci=Number(document.getElementById("cuci").value)||0;
+var lainnya=Number(document.getElementById("lainnya").value)||0;
+
+var total=(mandi*durasi*10)+(keran*6)+(cuci*40)+lainnya;
+document.getElementById("total").innerHTML=total.toFixed(0);
+
+if(total<=100){
+document.getElementById("status").innerHTML="🌱 Penggunaan air cukup hemat";
+document.getElementById("saran").innerHTML="Pertahankan kebiasaan hemat air. Matikan keran saat tidak digunakan.";
+}else if(total<=200){
+document.getElementById("status").innerHTML="💧 Penggunaan air sedang";
+document.getElementById("saran").innerHTML="Cobalah mengurangi durasi mandi dan jangan membiarkan keran menyala terlalu lama.";
+}else{
+document.getElementById("status").innerHTML="⚠️ Penggunaan air cukup tinggi";
+document.getElementById("saran").innerHTML="Kurangi durasi mandi, gunakan keran seperlunya, dan perhatikan penggunaan air untuk mencuci.";
+}
+}
+
+function resetKalkulator(){
+document.getElementById("mandi").value="";
+document.getElementById("durasi").value="";
+document.getElementById("keran").value="";
+document.getElementById("cuci").value="";
+document.getElementById("lainnya").value="";
+document.getElementById("total").innerHTML="0";
+document.getElementById("status").innerHTML="Masukkan data untuk melihat hasil.";
+document.getElementById("saran").innerHTML="Masukkan data untuk mendapatkan saran.";
+}
+</script>
+</body>
+</html>
